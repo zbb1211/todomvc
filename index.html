@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vue.js ? TodoMVC</title>
+		<link rel="stylesheet" href="css/base.css">
+		<link rel="stylesheet" href="css/index.css">
+		<style> [v-cloak] { display: none; } </style>
+	</head>
+	<body>
+		<section class="todoapp" v-cloak>
+			<header class="header">
+				<h1>todos</h1>
+				<input class="new-todo" autofocus autocomplete="off" placeholder="What needs to be done?">
+			</header>
+			<section class="main">
+				<input id="toggle-all" class="toggle-all" type="checkbox">
+				<label for="toggle-all">Mark all as complete</label>
+				<ul class="todo-list">
+					<li class="todo">
+						<div class="view">
+							<input class="toggle" type="checkbox">
+							<label></label>
+							<button class="destroy"></button>
+						</div>
+						<input class="edit" type="text">
+					</li>
+				</ul>
+			</section>
+			<footer class="footer">
+				<span class="todo-count">
+					<strong></strong> left
+				</span>
+				<ul class="filters">
+					<li><a href="#">All</a></li>
+					<li><a href="#">Active</a></li>
+					<li><a href="#">Completed</a></li>
+				</ul>
+				<button class="clear-completed">
+					Clear completed
+				</button>
+			</footer>
+		</section>
+		<footer class="info">
+			<p>Double-click to edit a todo</p>
+		</footer>
+	</body>
+</html>
