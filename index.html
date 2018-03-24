@@ -11,32 +11,38 @@
 		<section class="todoapp" v-cloak>
 			<header class="header">
 				<h1>todos</h1>
-				<input class="new-todo" autofocus autocomplete="off" placeholder="What needs to be done?">
+				<input class="new-todo" autofocus autocomplete="off" placeholder="What needs to be done?" v-model="newTodo" @keyup.enter="addTodo">
 			</header>
-			<section class="main">
-				<input id="toggle-all" class="toggle-all" type="checkbox">
+			<section class="main" v-show="todos.length">
+				<input id="toggle-all" class="toggle-all" type="checkbox" v-model="allDone">
 				<label for="toggle-all">Mark all as complete</label>
 				<ul class="todo-list">
-					<li class="todo">
-						<div class="view">
-							<input class="toggle" type="checkbox">
-							<label></label>
-							<button class="destroy"></button>
+					<li class="todo" v-for="todo in filteredTodos" :key="todo.id" :class="{'completed': todo.completed, 'editing': todo === editedTodo}">
+						<div class="view" >
+							<input class="toggle" type="checkbox" v-model="todo.completed">
+							<label @dblclick="editTodo(todo)">{{todo.title}}</label>
+							<button class="destroy" @click="deleteTodo(todo.id)"></button>
 						</div>
-						<input class="edit" type="text">
+						<input class="edit" type="text" v-model="todo.title" autofocus @blur="doneEdited(todo)" v-todo-focus = "editedTodo === todo" @keyup.enter="doneEdited(todo)" @keyup.esc="cancelEdit(todo)">
 					</li>
 				</ul>
 			</section>
-			<footer class="footer">
+			<footer class="footer" v-show="todos.length > 0">
 				<span class="todo-count">
-					<strong></strong> left
+					<strong>{{remaining}}</strong> {{pluralize('item',remaining)}} left
 				</span>
 				<ul class="filters">
-					<li><a href="#">All</a></li>
-					<li><a href="#">Active</a></li>
-					<li><a href="#">Completed</a></li>
+					<li>
+						<a href="javascript:;" @click="toggleVisibility('all')" :class="{'selected':visibility==='all'}">All</a>
+					</li>
+					<li>
+						<a href="javascript:;" @click="toggleVisibility('active')" :class="{'selected':visibility==='active'}">Active</a>
+					</li>
+					<li>
+						<a href="javascript:;" @click="toggleVisibility('completed')" :class="{'selected':visibility==='completed'}">Completed</a>
+					</li>
 				</ul>
-				<button class="clear-completed">
+				<button class="clear-completed" @click="removeCompleted">
 					Clear completed
 				</button>
 			</footer>
@@ -44,5 +50,8 @@
 		<footer class="info">
 			<p>Double-click to edit a todo</p>
 		</footer>
+		<script src="js/vue.js"></script>
+		<script src="js/vue-router.js"></script>
+		<script src="js/index.js"></script>
 	</body>
 </html>
